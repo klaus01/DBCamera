@@ -136,8 +136,9 @@
     if ( self.customCamera == nil ) {
         [self checkForLibraryImage];
     } else {
+        CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(self.cameraManager.videoInput.device.activeFormat.formatDescription);
         DBCameraView *cameraView = (DBCameraView *)self.customCamera;
-        [cameraView updateFrame:self.view.frame];
+        [cameraView updateFrame:self.view.frame videoSize:CGSizeMake(dimensions.width, dimensions.height)];
     }
 }
 

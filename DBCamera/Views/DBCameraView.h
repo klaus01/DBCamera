@@ -155,5 +155,5 @@
  *
  *  @param frame New frame
  */
-- (void) updateFrame:(CGRect)frame;
+- (void) updateFrame:(CGRect)frame videoSize:(CGSize)videoSize;
 @end
