@@ -138,8 +138,27 @@
     } else {
         CMVideoDimensions dimensions = CMVideoFormatDescriptionGetDimensions(self.cameraManager.videoInput.device.activeFormat.formatDescription);
         DBCameraView *cameraView = (DBCameraView *)self.customCamera;
-        [cameraView updateFrame:self.view.frame videoSize:CGSizeMake(dimensions.width, dimensions.height)];
+        
+        CGFloat safeAreaInsetsTop;
+        CGFloat safeAreaInsetsBottom;
+        if (@available(iOS 11.0, *)) {
+            UIEdgeInsets safeAreaInsets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
+            safeAreaInsetsTop = safeAreaInsets.top;
+            safeAreaInsetsBottom = safeAreaInsets.bottom;
+        } else {
+            safeAreaInsetsTop = self.topLayoutGuide.length;
+            safeAreaInsetsBottom = self.bottomLayoutGuide.length;
+        }
+        CGRect frame = self.view.frame;
+        frame.origin.y += safeAreaInsetsTop;
+        frame.size.height -= safeAreaInsetsTop;
+        frame.size.height -= safeAreaInsetsBottom;
+        [cameraView updateFrame:frame videoSize:CGSizeMake(dimensions.width, dimensions.height)];
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -177,7 +196,7 @@
 
 - (BOOL) prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void) dismissCamera
