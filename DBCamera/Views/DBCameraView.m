@@ -463,9 +463,8 @@
 }
 
 - (void) updateFrame:(CGRect)frame videoSize:(CGSize)videoSize {
-    
     self.frame = frame;
     self.previewLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.width * videoSize.width / videoSize.height);
-    
 }
+
 @end

@@ -156,4 +156,7 @@
  *  @param frame New frame
  */
 - (void) updateFrame:(CGRect)frame videoSize:(CGSize)videoSize;
+
+- (void) createGesture;
+
 @end
